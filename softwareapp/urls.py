@@ -11,6 +11,7 @@ from trainingapp import views as training_views
 urlpatterns = [
     path('login', training_views.login, name='login'),
     path('manager_logout', training_views.manager_logout, name='manager_logout'),
+    path('trainee_logout', training_views.trainee_logout, name='trainee_logout'),
     path('', views.index, name='index'),
     path('employees/',views.employees, name='employees'),
     path('software/', views.software, name='software'),
@@ -395,11 +396,10 @@ urlpatterns = [
     path('trainer_attendance_trainees_addattendance/', training_views.trainer_attendance_trainees_addattendance, name='trainer_attendance_trainees_addattendance'),
     
     # ****************************  Trainee   ******************************
-    path('trainee_dashboard_trainee/',training_views.trainee_dashboard_trainee,name="views.trainee_dashboard_trainee"),
+    path('trainee_dashboard_trainee/',training_views.trainee_dashboard_trainee,name="trainee_dashboard_trainee"),
     path('trainee_task/', training_views.trainee_task, name='trainee_task'),
-    path('trainee_completedTask/', training_views.trainee_completedTask, name='trainee_completedTask'),
     path('trainee_task_list/', training_views.trainee_task_list, name='trainee_task_list'),
-    path('trainee_task_details/', training_views.trainee_task_details, name='trainee_task_details'),    
+    path('trainee_task_details/<int:id>/', training_views.trainee_task_details, name='trainee_task_details'),    
     path('trainee_completed_taskList/',training_views.trainee_completed_taskList, name='trainee_completed_taskList'),
     path('trainee_completed_details/', training_views.trainee_completed_details, name='trainee_completed_details'), 
     path('trainee_topic/', training_views.trainee_topic, name='trainee_topic'),
@@ -418,7 +418,11 @@ urlpatterns = [
     path('trainee_payment_addpayment/',training_views.trainee_payment_addpayment,name='trainee_payment_addpayment'),
     path('trainee_payment_viewpayment/', training_views.trainee_payment_viewpayment,name='trainee_payment_viewpayment'),
     
-   
+    
+    path('save_trainee_review/<int:id>/', training_views.save_trainee_review,name='save_trainee_review'),
+    path('trainees_chpasswd/', training_views.trainees_chpasswd,name='trainees_chpasswd'),
+    path('trainees_account/', training_views.trainees_account,name='trainees_account'),
+    path('imagechange_trainees/<int:id>/', training_views.imagechange_trainees,name='imagechange_trainees'),
    # ****************************Admin******************************
 
    path('Admin_Dashboard/', training_views.Admin_Dashboard, name='Admin_Dashboard'),

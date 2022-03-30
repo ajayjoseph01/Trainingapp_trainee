@@ -1,5 +1,4 @@
 {% extends 'software_training/training/trainee/base_trainee.html' %} {% load static %} {% block content %}
-
 <div class="row mb-5" style="padding-top: 20px;">
     <div class="col-12 grid-margin">
         <div class="card">
@@ -22,7 +21,6 @@
                     <table class="table" id="myTable">
                         <thead>
                             <tr>
-
                                 <th> Name </th>
                                 <th> To </th>
                                 <th> Message </th>
@@ -30,9 +28,9 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% if mem %}
                             {% for i in mem %}
-                            <tr>
-                               
+                            <tr>            
                                 <td>
                                     <span>{{i.reported_issue_reporter.fullname}}</span>
                                 </td>
@@ -48,12 +46,12 @@
                                         <i class="mdi mdi-playlist-remove"></i>&nbsp; Verified
                                     </div>
                                     {% endif %}
-
-                                </td>
-                                
+                                </td>                           
                             </tr>
-                            {% endfor %}
-                            
+                            {% endfor %} 
+                            {% else %}
+                            <h5 class="text-light">Nothing to display.....</h5>
+                            {% endif %}                  
                         </tbody>
                     </table>
                 </div>
@@ -78,11 +76,10 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <p class="col-12 grid-margin stretch-card text-wrap text-justify text-light" style="background-color: dark-grey;width: 400px;
-                    " rows="6">{{i.reported_issue_reply}}</p>
-
+                            <p class="col-12 grid-margin stretch-card text-wrap text-justify text-light" style="background-color: dark-grey;width: 400px;" rows="6">
+                                {{i.reported_issue_reply}}
+                            </p>
                         </div>
-
                     </div>
                 </div>
                 <!-- Modal footer -->
@@ -113,7 +110,4 @@
         }
     }
 </script>
-
-
-
 {% endblock %}

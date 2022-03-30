@@ -20,7 +20,6 @@
                 <div class="table-responsive">
                     <table class="table " id="myTables">
                         <thead>
-
                             <tr>
                                 <th>Date</th>
                                 <th>Login Time</th>
@@ -29,12 +28,12 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% if atten %}
                             {% for i in atten %}
                             <tr>
                                 <td>{{i.attendance_date|date:"d-m-Y"}}</td>
                                 <td>11:30:05 AM</td>
                                 <td>12:30:05 AM</td>
-
                                 <td>
                                     {% if i.attendance_status == '0' %}
                                     <div class="badge badge-outline-success">Present</div>
@@ -43,9 +42,10 @@
                                     {% endif %}
                                 </td>
                             </tr>
-                            {% endfor %}
-
-                            
+                            {% endfor %}       
+                            {% else %}
+                            <h5 class="text-light">Nothing to display.....</h5>
+                            {% endif %}                       
                         </tbody>
                     </table>
                 </div>
@@ -73,5 +73,4 @@
         }
     }
 </script>
-
 {%endblock%}

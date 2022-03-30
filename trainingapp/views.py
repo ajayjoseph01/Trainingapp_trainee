@@ -403,11 +403,9 @@ def trainer_attendance_trainees_addattendance(request):
 #******************  Trainee  *****************************
 
 def trainee_dashboard_trainee(request):
-    if 'te_id' in request.session:
-        
+    if 'te_id' in request.session: 
         if request.session.has_key('te_id'):
             te_id = request.session['te_id']
-       
         z = user_registration.objects.filter(id=te_id)
         labels = []
         data = []
@@ -418,35 +416,127 @@ def trainee_dashboard_trainee(request):
         return render(request, 'software_training/training//trainee/trainee_dashboard_trainee.html',{'z': z ,'labels': labels,'data': data,})
     else:
         return redirect('/')
-    
-    
+       
 def trainee_task(request):
-   return render(request,'software_training/training/trainee/trainee_task.html')   
+    if 'te_id' in request.session:
+        if request.session.has_key('te_id'):
+            te_id = request.session['te_id']
+        else:
+            te_id = "dummy"
+        z=user_registration.objects.filter(id=te_id)
+        return render(request,'software_training/training/trainee/trainee_task.html',{'z':z})   
+    else:
+        return redirect('/')
 
 def trainee_task_list(request):
-    return render(request,'software_training/training/trainee/trainee_task_list.html')
+    if 'te_id' in request.session:
+        if request.session.has_key('te_id'):
+            te_id = request.session['te_id']
+        else:
+            te_id = "dummy"
+        z=user_registration.objects.filter(id=te_id)
+        mem=trainer_task.objects.filter(trainer_task_user=te_id,trainer_task_status = 0).all().order_by('-id')
+        return render(request,'software_training/training/trainee/trainee_task_list.html',{'z':z,'mem':mem})
+    else:
+        return redirect('/')
 
-def trainee_task_details(request):
-    return render(request,'software_training/training/trainee/trainee_task_details.html')
+def trainee_task_details(request,id):
+    if 'te_id' in request.session:
+        if request.session.has_key('te_id'):
+            te_id = request.session['te_id']
+        else:
+            te_id = "dummy"
+        z=user_registration.objects.filter(id=te_id)
+        mem=trainer_task.objects.get(id=id)
+        if request.method=="POST":
+            mem.trainer_task_user_description=request.POST['description']
+            mem.trainer_task_user_files=request.FILES['files']
+            mem.trainer_task_submitteddate=datetime.now()
+            mem.trainer_task_status=1
+            mem.save()
+            return redirect('trainee_task_list')
+        return render(request,'software_training/training/trainee/trainee_task_details.html',{'z':z,'mem':mem})
+    else:
+        return redirect('/')
 
 def trainee_completed_taskList(request):
-   return render(request,'software_training/training/trainee/trainee_completed_taskList.html')
-
-def trainee_completedTask(request):
-    return render(request,'software_training/training/trainee/trainee_completedTask.html')
+    if 'te_id' in request.session:
+        if request.session.has_key('te_id'):
+            te_id = request.session['te_id']
+        else:
+            te_id = "dummy"
+        z=user_registration.objects.filter(id=te_id)
+        mem=trainer_task.objects.filter(trainer_task_user=te_id,trainer_task_status = 1).all().order_by('-id')
+        return render(request,'software_training/training/trainee/trainee_completed_taskList.html',{'z':z,'mem':mem})
+    else:
+        return redirect('/')
 
 def trainee_completed_details(request):
-    return render(request,'software_training/training/trainee/trainee_completed_details.html')
+    if 'te_id' in request.session:
+        if request.session.has_key('te_id'):
+            te_id = request.session['te_id']
+        else:
+            te_id = "dummy"
+        z=user_registration.objects.filter(id=te_id)
+        return render(request,'software_training/training/trainee/trainee_completed_details.html',{'z':z})
+    else:
+        return redirect('/')
 
 def trainee_topic(request):
-    return render(request, 'software_training/training/trainee/trainee_topic.html')
+    if 'te_id' in request.session:
+        if request.session.has_key('te_id'):
+            te_id = request.session['te_id']
+        else:
+            te_id = "dummy"
+        z=user_registration.objects.filter(id=te_id)
+        return render(request, 'software_training/training/trainee/trainee_topic.html',{'z':z})
+    else:
+        return redirect('/')
 
 def trainee_currentTopic(request):
-    return render(request, 'software_training/training/trainee/trainee_currentTopic.html')
-    
-def trainee_previousTopic(request):
-    return render(request, 'software_training/training/trainee/trainee_previousTopic.html')
+    if 'te_id' in request.session:
+        if request.session.has_key('te_id'):
+            te_id = request.session['te_id']
+        if request.session.has_key('te_team_id'):
+            te_team_id = request.session['te_team_id']         
+        else:
+            te_id = "dummy"
+        z=user_registration.objects.filter(id=te_id)
+        mem=topic.objects.filter(topic_trainee=te_id,topic_team=te_team_id,topic_status = 0).all().order_by('-id')
+        return render(request, 'software_training/training/trainee/trainee_currentTopic.html',{'z':z,'mem':mem})
+    else:
+        return redirect('/')  
 
+def save_trainee_review(request,id):
+    if 'te_id' in request.session:
+        if request.session.has_key('te_id'):
+            te_id = request.session['te_id']
+        if request.session.has_key('te_team_id'):
+            te_team_id = request.session['te_team_id']         
+        else:
+            te_id = "dummy"
+        z=user_registration.objects.filter(id=te_id)
+        vars=topic.objects.get(id=id)
+        vars.topic_review = request.POST.get('review')
+        vars.topic_status = 1
+        vars.save()
+        return redirect('trainee_currentTopic')
+    else:
+        return redirect('/')  
+
+def trainee_previousTopic(request):
+    if 'te_id' in request.session:
+        if request.session.has_key('te_id'):
+            te_id = request.session['te_id']
+        if request.session.has_key('te_team_id'):
+            te_team_id = request.session['te_team_id']
+        else:
+            te_id = "dummy"
+        z=user_registration.objects.filter(id=te_id)
+        mem=topic.objects.filter(topic_trainee=te_id,topic_team=te_team_id,topic_status = 1).all().order_by('-id')
+        return render(request, 'software_training/training/trainee/trainee_previousTopic.html',{'z':z,'mem':mem})
+    else:
+        return redirect('/')
 def trainee_reported_issue(request):
     if 'te_id' in request.session:
         if request.session.has_key('te_id'):
@@ -610,7 +700,14 @@ def trainee_payment_addpayment(request):
             pay.paymentlist_amount_date = request.POST['paymentdate']
             pay.paymentlist_current_date = datetime.now()
             pay.paymentlist_amount_downlod = request.FILES['files']
+            pay.paymentlist_amount_status = 0 
+            member = user_registration.objects.get(id=te_id)
+            co = course.objects.get(id = member.course_id)
+            member.total_pay=int(request.POST['amount'])+member.total_pay
+            member.payment_balance = co.course_total_fee - member.total_pay
+            member.save()
             pay.save()
+            return redirect('trainee_payment')
 
         return render(request,'software_training/training/trainee/trainee_payment_addpayment.html',{'z':z})
     else:
@@ -622,9 +719,72 @@ def trainee_payment_viewpayment(request):
         else:
             te_id = "dummy"
         z=user_registration.objects.filter(id=te_id)
-        return render(request,'software_training/training/trainee/trainee_payment_viewpayment.html',{'z':z})
+        mem=paymentlist.objects.filter(paymentlist_user_id = te_id).order_by('-id')
+        return render(request,'software_training/training/trainee/trainee_payment_viewpayment.html',{'z':z,'mem':mem})
     else:
         return redirect('/')
+
+def trainee_logout(request):
+    if 'te_id' in request.session:  
+        request.session.flush()
+        return redirect('login')
+    else:
+        return redirect('login') 
+
+def trainees_account(request):
+    if 'te_id' in request.session:
+        if request.session.has_key('te_id'):
+            te_id = request.session['te_id']
+        else:
+            te_id = "dummy"
+        z=user_registration.objects.filter(id=te_id)
+        return render(request,'software_training/training/trainee/trainees_account.html',{'z':z})
+    else:
+        return redirect('/')
+
+def imagechange_trainees(request,id):
+    if 'te_id' in request.session:
+        if request.session.has_key('te_id'):
+            te_id = request.session['te_id']
+        else:
+            te_id = "dummy"
+        z=user_registration.objects.filter(id=te_id)     
+        mem=user_registration.objects.get(id=id)
+        if request.method=="POST":
+            mem.photo = request.FILES['filenamees']
+            mem.save()
+            return redirect('trainees_account')
+    else:
+        return redirect('/')
+
+def trainees_chpasswd(request):
+    if 'te_id' in request.session:
+        if request.session.has_key('te_id'):
+            te_id = request.session['te_id']
+        else:
+            te_id = "dummy"
+        z=user_registration.objects.filter(id=te_id)
+        if request.method == 'POST':
+            abc = user_registration.objects.get(id=te_id)   
+            oldps = request.POST['currentPassword']
+            newps = request.POST['newPassword']
+            cmps = request.POST.get('confirmPassword')
+            if oldps != newps:
+                if newps == cmps:
+                    abc.password = request.POST.get('confirmPassword')
+                    abc.save()
+                    return redirect('trainee_dashboard_trainee')
+            elif oldps == newps:
+                messages.add_message(request, messages.INFO, 'Current and New password same')
+            else:
+                messages.info(request, 'Incorrect password same')                
+            return render(request, 'software_training/training/trainee/trainees_chpasswd.html', {'z': z})   
+        return render(request, 'software_training/training/trainee/trainees_chpasswd.html', {'z': z})
+    else:
+        return redirect('/')
+
+
+
 #****************************  Admin- view  ********************************
 
 def Admin_Dashboard(request):

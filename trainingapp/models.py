@@ -148,7 +148,7 @@ class trainer_task(models.Model):
     trainer_task_description = models.TextField(max_length=240)
     trainer_task_user_description = models.TextField(max_length=240)
     trainer_task_user_files = models.FileField(upload_to='images/', null=True, blank=True)
-    trainer_task_status = models.CharField(max_length=200)
+    trainer_task_status = models.CharField(max_length=200,default="0")
     
     
 
@@ -192,7 +192,7 @@ class topic(models.Model):
     topic_files = models.FileField(upload_to='images/', null=True, blank=True)
     topic_description = models.TextField()
     topic_review = models.TextField()
-    topic_status = models.CharField(max_length=200)
+    topic_status = models.CharField(max_length=200,default="0")
     
     
     

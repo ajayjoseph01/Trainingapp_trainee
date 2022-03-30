@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
@@ -38,14 +37,11 @@
             margin-left: 25px;
             margin-right: 15px;
         }
-
     }
 </style>
-
 <body>
     <div class="container-scroller">
-
-        <!-- partial:partials/_sidebar.html -->
+       <!-- partial:partials/_sidebar.html -->
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
             <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
                 <a class="sidebar-brand brand-logo text-light text-decoration-none" href="#">
@@ -74,7 +70,7 @@
                                 class="mdi mdi-dots-vertical"></i></a>
                         <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list"
                             aria-labelledby="profile-dropdown">
-                            <a href="#" class="dropdown-item preview-item">
+                            <a href="{% url 'trainees_account' %}" class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
                                     <div class="preview-icon bg-dark rounded-circle">
                                         <i class="mdi mdi-settings text-primary"></i>
@@ -85,7 +81,7 @@
                                 </div>
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item preview-item">
+                            <a href="{% url 'trainees_chpasswd' %}" class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
                                     <div class="preview-icon bg-dark rounded-circle">
                                         <i class="mdi mdi-onepassword  text-info"></i>
@@ -95,8 +91,6 @@
                                     <p class="preview-subject ellipsis mb-1 text-small">Change Password</p>
                                 </div>
                             </a>
-
-                            </a>
                         </div>
                     </div>
                 </li>
@@ -104,7 +98,7 @@
                     <span class="nav-link">Navigation</span>
                 </li>
                 <li class="nav-item menu-items">
-                    <a class="nav-link" href="/softwareapp/trainee_dashboard_trainee/">
+                    <a class="nav-link" href="{% url 'trainee_dashboard_trainee' %}">
                         <span class="menu-icon">
                             <i class="mdi mdi-speedometer"></i>
                         </span>
@@ -112,7 +106,7 @@
                     </a>
                 </li>
                 <li class="nav-item menu-items">
-                    <a class="nav-link" href="/softwareapp/trainee_task/">
+                    <a class="nav-link" href="{% url 'trainee_task' %}">
                         <span class="menu-icon">
                             <i class="mdi mdi-reorder-horizontal"></i>
                         </span>
@@ -120,7 +114,7 @@
                     </a>
                 </li>
                 <li class="nav-item menu-items">
-                    <a class="nav-link" href="/softwareapp/trainee_topic/">
+                    <a class="nav-link" href="{% url 'trainee_topic' %}">
                         <span class="menu-icon">
                             <i class="mdi mdi-clipboard-text text-success"></i>
                         </span>
@@ -128,7 +122,7 @@
                     </a>
                 </li>
                 <li class="nav-item menu-items">
-                    <a class="nav-link" href="/softwareapp/trainees_attendance_viewattendance/">
+                    <a class="nav-link" href="{% url 'trainees_attendance_viewattendance' %}">
                         <span class="menu-icon">
                             <i class="mdi mdi-chart-bar"></i>
                         </span>
@@ -136,7 +130,7 @@
                     </a>
                 </li>
                 <li class="nav-item menu-items">
-                    <a class="nav-link" href="/softwareapp/trainee_report_reported/">
+                    <a class="nav-link" href="{% url 'trainee_report_reported' %}">
                         <span class="menu-icon">
                             <i class="mdi mdi-file-document-box text-danger"></i>
                         </span>
@@ -144,7 +138,7 @@
                     </a>
                 </li>
                 <li class="nav-item menu-items">
-                    <a class="nav-link" href="/softwareapp/trainee_payment/">
+                    <a class="nav-link" href="{% url 'trainee_payment' %}">
                         <span class="menu-icon">
                             <i class="mdi mdi-cash-usd"></i>
                         </span>
@@ -152,16 +146,13 @@
                     </a>
                 </li>
                 <li class="nav-item menu-items">
-                    <a class="nav-link" href="/softwareapp/trainee_applyleave_card/">
+                    <a class="nav-link" href="{% url 'trainee_applyleave_card' %}">
                         <span class="menu-icon">
                             <i class="mdi mdi-message-plus"></i>
                         </span>
                         <span class="menu-title">Apply Leaves</span>
-
                     </a>
                 </li>
-
-
             </ul>
         </nav>
         <!-- partial -->
@@ -195,7 +186,7 @@
                                 <h6 class="p-3 mb-0">Profile</h6>
                                 <div class="dropdown-divider"></div>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item preview-item">
+                                <a class="dropdown-item preview-item" href="{% url 'trainee_logout' %}">
                                     <div class="preview-thumbnail">
                                         <div class="preview-icon bg-dark rounded-circle">
                                             <i class="mdi mdi-logout text-danger"></i>
@@ -257,9 +248,6 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-
-
 {% endfor %}
 </body>
-
 </html>

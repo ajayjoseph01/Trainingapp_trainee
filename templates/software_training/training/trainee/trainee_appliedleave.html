@@ -33,10 +33,10 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% if le %}
                             {% for i in le %}
                             <tr>
                                 <td>
-
                                     <span>{{i.leave_from_date|date:'d-m-Y'}}</span>
                                 </td>
                                 <td>{{i.leave_to_date|date:'d-m-Y'}}</td>
@@ -45,7 +45,6 @@
 
                                 <td>
                                     {% if i.leave_leaveapproved_status == '0' %}
-
                                     <div class="badge badge-outline-warning" style="width: 105px;">
                                         <i class="mdi mdi-playlist-remove"></i>&nbsp; Pending
                                     </div>
@@ -58,19 +57,18 @@
                                         <i class="mdi mdi-playlist-remove"></i>&nbsp; Rejected
                                     </div>
                                     {% endif %}
-                                </td>
-                                
+                                </td>                       
                             </tr>
-                            {% endfor %}
-                            
+                            {% endfor %} 
+                            {% else %}
+                            <h5 class="text-light">Nothing to display.....</h5>
+                            {% endif %}                     
                     </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
-</div>
-
 <script>
     function myFunction() {
         var input, filter, table, tr, td, i, txtValue;
@@ -91,5 +89,4 @@
         }
     }
 </script>
-
 {% endblock %}
