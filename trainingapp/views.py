@@ -784,7 +784,6 @@ def trainees_chpasswd(request):
         return redirect('/')
 
 
-
 #****************************  Admin- view  ********************************
 
 def Admin_Dashboard(request):
