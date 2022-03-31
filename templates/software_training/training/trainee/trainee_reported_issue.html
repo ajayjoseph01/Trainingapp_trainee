@@ -32,7 +32,7 @@
                             {% for i in mem %}
                             <tr>            
                                 <td>
-                                    <span>{{i.reported_issue_reporter.fullname}}</span>
+                                    <span><img src="{{i.reported_issue_reporter.photo.url}}" alt="image" /> &nbsp;{{i.reported_issue_reporter.fullname}}</span>
                                 </td>
                                 <td>{{i.reported_issue_reported_to}}</td>
                                 <td class="text-wrap text-justify">{{i.reported_issue_issue}}</td>
